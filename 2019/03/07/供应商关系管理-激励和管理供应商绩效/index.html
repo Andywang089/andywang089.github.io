@@ -1,686 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
+extends includes/layout.pug
 
-    
-
-    
-    <title>供应商关系管理-激励和管理供应商绩效 | learnbydoing8-学以致用</title>
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
-    <meta name="keywords" content="采购 供应链管理" />
-    
-    <meta name="description" content="促进供应商的承诺与合作提高供应商的承诺、合作和忠诚度：  供应商激励与绩效管理，利用供应商激励和惩罚。 确保对绩效和关系的改进给予有意义的激励，且在达到时候给予奖励（包括非正式的认可、感谢和表扬） 与供应商维持积极的、加强关系的联络和沟通。（最好有专人负责对接）">
-<meta name="keywords" content="采购 供应链管理">
-<meta property="og:type" content="article">
-<meta property="og:title" content="供应商关系管理-激励和管理供应商绩效">
-<meta property="og:url" content="http:&#x2F;&#x2F;learnbydoing8.com&#x2F;2019&#x2F;03&#x2F;07&#x2F;%E4%BE%9B%E5%BA%94%E5%95%86%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86-%E6%BF%80%E5%8A%B1%E5%92%8C%E7%AE%A1%E7%90%86%E4%BE%9B%E5%BA%94%E5%95%86%E7%BB%A9%E6%95%88&#x2F;index.html">
-<meta property="og:site_name" content="learnbydoing8-学以致用">
-<meta property="og:description" content="促进供应商的承诺与合作提高供应商的承诺、合作和忠诚度：  供应商激励与绩效管理，利用供应商激励和惩罚。 确保对绩效和关系的改进给予有意义的激励，且在达到时候给予奖励（包括非正式的认可、感谢和表扬） 与供应商维持积极的、加强关系的联络和沟通。（最好有专人负责对接）">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-19T09:32:31.299Z">
-<meta name="twitter:card" content="summary">
-    
-
-    
-        <link rel="alternate" href="/" title="learnbydoing8-学以致用" type="application/atom+xml" />
-    
-
-    
-
-    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/libs/titillium-web/styles.css">
-    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
-
-    <link rel="stylesheet" href="/css/style.css">
-
-    <script src="/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    
-        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
-    
-    
-        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
-    
-    
-    
+block top_img
+  - var top_img =  page.top_img || page.cover || theme.post_meta.top_img || theme.post_img || theme.top_img || config.top_img
+  - var bg_img = top_img !== true ? `background-image: url(${top_img})` : ''
+  div#top-container(style=bg_img)
+    #post-info
+      #post-title
+          .posttitle=page.title || _p('no_title')
+      #post-meta
+        if (theme.post_meta.date_type)
+          if (theme.post_meta.date_type === 'both')
+            time.post-meta__date
+              i.fa.fa-calendar(aria-hidden="true")
+              =' '+_p('post.created')+' '+date(page.date, config.date_format)
+              span.post-meta__separator |
+              i.fa.fa-history(aria-hidden="true")
+              =' '+_p('post.updated')+' '+date(page.updated, config.date_format)
+          else
+            - var date_type = theme.post_meta.date_type === 'updated' ? 'updated' : 'date'
+            time.post-meta__date #[i.fa.fa-calendar(aria-hidden="true")] #[=date(page[date_type], config.date_format)]
+                  
+        if (theme.post_meta.categories && page.categories.data.length > 0)
+          if (theme.post_meta.date_type)
+            span.post-meta__separator.mobile_hidden |
+          span.mobile_hidden
+            each item, index in page.categories.data
+              i.fa.fa-inbox.post-meta__icon(aria-hidden="true")
+              a(href=url_for(item.path)).post-meta__categories #[=item.name]
+              if (index < page.categories.data.length - 1)
+                i.fa.fa-angle-right(aria-hidden="true")
+        .post-meta-wordcount
+          if (theme.wordcount && theme.wordcount.enable)
+            span= _p('post.wordcount') + ': '
+            span.word-count= wordcount(page.content)
+            span.post-meta__separator |
+            span= _p('post.min2read', min2read(page.content, {cn: 350, en: 160}))
+          if (theme.wordcount && theme.wordcount.enable && theme.busuanzi.page_pv)
+            span.post-meta__separator |
+          if theme.busuanzi.page_pv           
+            span= _p('post.page_pv') + ': '
+            span#busuanzi_value_page_pv
 
 
-</head>
-
-<body>
-    <div id="wrap">
-        <header id="header">
-    <div id="header-outer" class="outer">
-        <div class="container">
-            <div class="container-inner">
-                <div id="header-title">
-                    <h1 class="logo-wrap">
-                        <a href="/" class="logo"></a>
-                    </h1>
-                    
-                </div>
-                <div id="header-inner" class="nav-container">
-                    <a id="main-nav-toggle" class="nav-icon fa fa-bars"></a>
-                    <div class="nav-container-inner">
-                        <ul id="main-nav">
-                            
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/">主页</a>
-                                </li>
-                            
-                                        <ul class="main-nav-list"><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3-%E6%80%BB%E7%BB%93/">工作相关 总结</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E6%9D%8E%E7%AC%91%E6%9D%A5%E3%80%8A%E8%B4%A2%E5%AF%8C%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">李笑来《财富自由之路》读书笔记</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E8%AF%BB%E4%B9%A6-%E8%8B%B1%E8%AF%AD%E5%8E%9F%E7%89%88%E4%B9%A6/">读书 英语原版书</a></li><li class="main-nav-list-item"><a class="main-nav-list-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a></li></ul>
-                                    
-                                <li class="main-nav-list-item" >
-                                    <a class="main-nav-list-link" href="/about/index.html">关于</a>
-                                </li>
-                            
-                        </ul>
-                        <nav id="sub-nav">
-                            <div id="search-form-wrap">
-
-    <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
-        <button type="submit" class="search-form-submit"></button>
-    </form>
-    <div class="ins-search">
-    <div class="ins-search-mask"></div>
-    <div class="ins-search-container">
-        <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
-            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
-        </div>
-        <div class="ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
-    </div>
-</div>
-<script>
-(function (window) {
-    var INSIGHT_CONFIG = {
-        TRANSLATION: {
-            POSTS: '文章',
-            PAGES: '页面',
-            CATEGORIES: '分类',
-            TAGS: '标签',
-            UNTITLED: '(未命名)',
-        },
-        ROOT_URL: '/',
-        CONTENT_URL: '/content.json',
-    };
-    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-})(window);
-</script>
-<script src="/js/insight.js"></script>
-
-</div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
-        <div class="container">
-            <div class="main-body container-inner">
-                <div class="main-body-inner">
-                    <section id="main">
-                        <div class="main-body-header">
-    <h1 class="header">
-    
-    <a class="page-title-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a>
-    </h1>
-</div>
-
-                        <div class="main-body-content">
-                            <article id="post-供应商关系管理-激励和管理供应商绩效" class="article article-single article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+block content
+  article#post(class="")
+    #post-content.article-container!= page.content
+  if (theme.post_copyright && theme.post_copyright.enable && page.copyright != false)
+    .post-copyright
+      .post-copyright__author
+        span.post-copyright-meta= _p('post.copyright.author') + ": "
+        span.post-copyright-info
+          a(href=`mailto:${config.email}`) #[=config.author]
+      .post-copyright__type
+        span.post-copyright-meta= _p('post.copyright.link') + ": "
+        span.post-copyright-info
+          a(href=url_for(page.permalink)) #[=page.permalink]
+      .post-copyright__notice
+        span.post-copyright-meta= _p('post.copyright.copyright_notice') + ": "
+        span.post-copyright-info!= _p('post.copyright.copyright_content', theme.post_copyright.license_url, theme.post_copyright.license, config.url, config.title)
+  
+  .tag_share
+    if (theme.post_meta.tags)
+      .post-meta__tag-list
+        each item, index in page.tags.data
+          a(href=url_for(item.path)).post-meta__tags #[=item.name]    
+    include includes/share/index.pug
         
-            <header class="article-header">
-                
-    
-        <h1 class="article-title" itemprop="name">
-        供应商关系管理-激励和管理供应商绩效
-        </h1>
-    
-
-            </header>
-        
-        
-            <div class="article-meta">
-                
-    <div class="article-date">
-      <i class="fa fa-calendar"></i>
-      <a href="/2019/03/07/%E4%BE%9B%E5%BA%94%E5%95%86%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86-%E6%BF%80%E5%8A%B1%E5%92%8C%E7%AE%A1%E7%90%86%E4%BE%9B%E5%BA%94%E5%95%86%E7%BB%A9%E6%95%88/" class="article-date">
-         <time datetime="2019-03-07T08:17:04.000Z" itemprop="datePublished">2019-03-07</time>
-      </a>
-    </div>
-
-
-                
-
-                
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/%E9%87%87%E8%B4%AD-%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86/" rel="tag">采购 供应链管理</a>
-    </div>
-
-                
-   <span id="/2019/03/07/%E4%BE%9B%E5%BA%94%E5%95%86%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86-%E6%BF%80%E5%8A%B1%E5%92%8C%E7%AE%A1%E7%90%86%E4%BE%9B%E5%BA%94%E5%95%86%E7%BB%A9%E6%95%88/" class="leancloud-visitors" data-flag-title="供应商关系管理-激励和管理供应商绩效">
-   <i class="fa fa-eye"></i>
-   <span class="post-meta-item-text">阅读次数: </span>
-   <i class="leancloud-visitors-count">1000000</i>
-   </span>
-
-
-                
-   <div class="article-counter">
-      <i class="fa fa-file-word-o"></i>
-      <span class="post-count-item-text">本文字数: </span>
-      <span class="post-count">1k</span>
-      <i class="fa fa-clock-o"></i>
-      <span class="post-time-item-text">阅读时长: </span>
-      <span class="post-count">3 分钟 </span>
-   </div>
-
-
-            </div>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-            <h2 id="促进供应商的承诺与合作"><a href="#促进供应商的承诺与合作" class="headerlink" title="促进供应商的承诺与合作"></a>促进供应商的承诺与合作</h2><p>提高供应商的承诺、合作和忠诚度：</p>
-<ol>
-<li>供应商激励与绩效管理，利用供应商激励和惩罚。</li>
-<li>确保对绩效和关系的改进给予有意义的激励，且在达到时候给予奖励（包括非正式的认可、感谢和表扬）</li>
-<li>与供应商维持积极的、加强关系的联络和沟通。（最好有专人负责对接）</li>
-</ol>
-<a id="more"></a>
-
-<ol>
-<li>获得双方高级经理的承诺和支持，必要时如冲突或争议等情况得到高层的支持。</li>
-<li>培养个人联系和人脉，建立各方的信任和商誉。</li>
-<li>尽可能进行“双赢”谈判，表现出理解供应商在问题和谈判中的观点。</li>
-<li>通过保持足够的业务量，使供应商对合作进行投资，并且通过良好的合作，信誉等方面做一个富有吸引力的买家。（按时付款、公平处理争议、共担风险、公平获益等）</li>
-<li>让供应商参与产品设计与共同开发、系统集成、收益共享等。</li>
-<li>确保尽可能遵守互利互惠或双赢原则。</li>
-</ol>
-<h2 id="供应商奖励"><a href="#供应商奖励" class="headerlink" title="供应商奖励"></a>供应商奖励</h2><p>供应商奖励措施举例，包括财务与非财务：</p>
-<ol>
-<li>设定具体的与认可或奖赏挂钩的关键绩效指标：续签合同或承诺将来继续合作、纳入首选供应商名单、公开表扬、财务奖励。</li>
-<li>分享收入、利润或收益。（供应商通过改进给买家创造更多价值、收入或利润，分一部分给供应商）</li>
-<li>许诺长期合作或增加业务量。</li>
-<li>订货量稳定或确定最低订货量，便于供应商安排投资和改进。</li>
-<li>许诺长期合作和增加业务量，前提需要买家富有吸引力，比如按时还款。</li>
-<li>创新机会：如可以让供应商有机会实施或创造新解决方案，利于供应商发展。</li>
-<li>为产品开发提供支持。</li>
-<li>实施供应商奖励计划，给绩效优秀供应商公开褒奖。</li>
-<li>其他正面反馈，供应商绩效好，采购团队就要表示感谢和表扬。</li>
-</ol>
-<h3 id="激励原则"><a href="#激励原则" class="headerlink" title="激励原则"></a>激励原则</h3><ol>
-<li>平衡，不能只强调某一方面导致其他方面受损害。例如通过牺牲质量来追求产量或降低成本则不可取。（尤其在制药业企业，质量权重远大于单纯成本，尤其在健康医药行业）</li>
-<li>奖励标准要明确，不能过于狭隘，避免片面追求某方面成果扼杀灵活性或创新。</li>
-<li>公平且易于监督。绩效标准明确，达到目标就要实施奖励。</li>
-</ol>
-<h3 id="供应商惩罚"><a href="#供应商惩罚" class="headerlink" title="供应商惩罚"></a>供应商惩罚</h3><ol>
-<li>绩效不佳威胁减小交易额。</li>
-<li>排除出首选供应商名单外。</li>
-<li>将糟糕供应商等级评分公之于众。（可以看做是发布于官方平台进行曝光）</li>
-<li>在合同中明确，如因供应商原因未能按要求履行合同导致买方损失，买方可以提出索赔。</li>
-</ol>
-<p><strong>如果希望得到长期承诺、合作及提升，“胡萝卜”比“大棒”更管用。</strong></p>
-<h3 id="供应商绩效测量与管理-（绩效评估作用）"><a href="#供应商绩效测量与管理-（绩效评估作用）" class="headerlink" title="供应商绩效测量与管理-（绩效评估作用）"></a>供应商绩效测量与管理-（绩效评估作用）</h3><p>正式的供应商绩效评估具有多方面意义。</p>
-<ol>
-<li>帮助识别质量高、绩效优的供应商。（哪些供应商可获得特定订单、是否进入首选供应商名单、是否有潜力发展为更为密切的战略伙伴供应商、如何在若干供应商之间分配采购支出以降低风险）</li>
-<li>有助于保证供应商履行合同承诺。</li>
-<li>为供应商提供激励，以保持和持续改进其绩效水平。</li>
-<li>通过识别问题及其原因或识别需要得到支持和开发，从而提升绩效。</li>
-<li>供应商评估与供应商绩效评估不同。前者为合同签署前，评估是否具有满足买家需求的能力，后者评判现有供应商满足买家需求过程中的绩效。</li>
-</ol>
-
-        </div>
-        <footer class="article-footer">
-            
-
-
-
-    <a data-url="http://learnbydoing8.com/2019/03/07/%E4%BE%9B%E5%BA%94%E5%95%86%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86-%E6%BF%80%E5%8A%B1%E5%92%8C%E7%AE%A1%E7%90%86%E4%BE%9B%E5%BA%94%E5%95%86%E7%BB%A9%E6%95%88/" data-id="ck28naapw0006z8qgbm47eo7g" class="article-share-link"><i class="fa fa-share"></i>分享到</a>
-<script>
-    (function ($) {
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-        </footer>
-    </div>
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "BlogPosting",
-        "author": {
-            "@type": "Person",
-            "name": "王烨"
-        },
-        "headline": "供应商关系管理-激励和管理供应商绩效",
-        "image": "http://learnbydoing8.com",
-        "keywords": "采购 供应链管理",
-        "genre": "采购工作相关",
-        "datePublished": "2019-03-07",
-        "dateCreated": "2019-03-07",
-        "dateModified": "2019-07-19",
-        "url": "http://learnbydoing8.com/2019/03/07/供应商关系管理-激励和管理供应商绩效/",
-        "description": "促进供应商的承诺与合作提高供应商的承诺、合作和忠诚度：
-
-供应商激励与绩效管理，利用供应商激励和惩罚。
-确保对绩效和关系的改进给予有意义的激励，且在达到时候给予奖励（包括非正式的认可、感谢和表扬）
-与供应商维持积极的、加强关系的联络和沟通。（最好有专人负责对接）
-",
-        "wordCount": 22
-    }
-</script>
-
-</article>
-
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-
-    
-    </section>
-
-
-
-                        </div>
-                    </section>
-                    <aside id="sidebar">
-    <a class="sidebar-toggle" title="Expand Sidebar"><i class="toggle icon"></i></a>
-    <div class="sidebar-top">
-        <p>关注我 :</p>
-        <ul class="social-links">
-            
-                
-                <li>
-                    <a class="social-tooltip" title="twitter" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-twitter"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="facebook" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-facebook"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="stack-overflow" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-stack-overflow"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="weibo" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-weibo"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="rss" href="/" target="_blank" rel="noopener">
-                        <i class="icon fa fa-rss"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="GitHub" href="https://github.com/Andywang089 || github" target="_blank" rel="noopener">
-                        <i class="icon fa fa-GitHub"></i>
-                    </a>
-                </li>
-                
-            
-                
-                <li>
-                    <a class="social-tooltip" title="E-Mail" href="mailto:yewang0809@gmail.com || envelope" target="_blank" rel="noopener">
-                        <i class="icon fa fa-E-Mail"></i>
-                    </a>
-                </li>
-                
-            
-        </ul>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2019/03/07/%E5%A2%9E%E5%80%BC%E5%9E%8B%E4%BE%9B%E5%BA%94%E9%93%BE%E5%85%B3%E7%B3%BB/" id="article-nav-newer" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">下一篇</strong>
-        <p class="article-nav-title">
-        
-            增值型供应链关系
-        
-        </p>
-        <i class="icon fa fa-chevron-right" id="icon-chevron-right"></i>
-    </a>
-    
-    
-        <a href="/2018/07/31/%E9%87%87%E8%B4%AD%E6%A1%88%E4%BE%8B%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/" id="article-nav-older" class="article-nav-link-wrap">
-        <strong class="article-nav-caption">上一篇</strong>
-        <p class="article-nav-title">采购案例学习（一）</p>
-        <i class="icon fa fa-chevron-left" id="icon-chevron-left"></i>
-        </a>
-    
-</nav>
-
-    
-    <div class="widgets-container">
-        
-            
-                
-
-            
-                
-    <div class="widget-wrap">
-        <h3 class="widget-title">最新文章</h3>
-        <div class="widget">
-            <ul id="recent-post" class="">
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/07/19/%E5%85%B3%E4%BA%8E%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A5/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3-%E6%80%BB%E7%BB%93/">工作相关 总结</a></p>
-                            <p class="item-title"><a href="/2019/07/19/%E5%85%B3%E4%BA%8E%E5%B7%A5%E4%BD%9C%E6%B1%87%E6%8A%A5/" class="title">关于采购履约工作流程</a></p>
-                            <p class="item-date"><time datetime="2019-07-19T09:35:23.000Z" itemprop="datePublished">2019-07-19</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/05/23/%E9%87%87%E8%B4%AD%E4%B8%8E%E7%89%A9%E6%B5%81%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E9%9B%86%E5%BD%95/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a></p>
-                            <p class="item-title"><a href="/2019/05/23/%E9%87%87%E8%B4%AD%E4%B8%8E%E7%89%A9%E6%B5%81%E4%B8%93%E4%B8%9A%E6%9C%AF%E8%AF%AD%E9%9B%86%E5%BD%95/" class="title">采购与物流专业术语集录</a></p>
-                            <p class="item-date"><time datetime="2019-05-23T05:44:56.000Z" itemprop="datePublished">2019-05-23</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/04/19/%E9%87%87%E8%B4%AD%E7%9A%84%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%96%B9%E6%B3%95/" class="thumbnail">
-    
-    
-        <span style="background-image:url(https://wiki.mbalib.com/w/images/0/0d/%E5%8D%A1%E6%8B%89%E6%9D%B0%E5%85%8B%E6%A8%A1%E5%9E%8B.gif)" alt="采购的工具与方法" class="thumbnail-image"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a></p>
-                            <p class="item-title"><a href="/2019/04/19/%E9%87%87%E8%B4%AD%E7%9A%84%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%96%B9%E6%B3%95/" class="title">采购的工具与方法</a></p>
-                            <p class="item-date"><time datetime="2019-04-19T02:57:27.000Z" itemprop="datePublished">2019-04-19</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/04/03/%E4%BE%9B%E5%BA%94%E5%95%86%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a></p>
-                            <p class="item-title"><a href="/2019/04/03/%E4%BE%9B%E5%BA%94%E5%95%86%E8%B4%A8%E9%87%8F%E7%AE%A1%E7%90%86/" class="title">供应商质量管理</a></p>
-                            <p class="item-date"><time datetime="2019-04-03T06:10:14.000Z" itemprop="datePublished">2019-04-03</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2019/03/22/%E4%B8%80%E4%B8%AA%E8%AF%BB%E4%B9%A6%E4%BA%A7%E5%93%81/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-    
-</a>
-
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"><a class="article-category-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a></p>
-                            <p class="item-title"><a href="/2019/03/22/%E4%B8%80%E4%B8%AA%E8%AF%BB%E4%B9%A6%E4%BA%A7%E5%93%81/" class="title">一个读书产品</a></p>
-                            <p class="item-date"><time datetime="2019-03-22T03:35:11.000Z" itemprop="datePublished">2019-03-22</time></p>
-                        </div>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">分类</h3>
-        <div class="widget">
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3-%E6%80%BB%E7%BB%93/">工作相关 总结</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%9D%8E%E7%AC%91%E6%9D%A5%E3%80%8A%E8%B4%A2%E5%AF%8C%E8%87%AA%E7%94%B1%E4%B9%8B%E8%B7%AF%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">李笑来《财富自由之路》读书笔记</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6/">读书</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6-%E8%8B%B1%E8%AF%AD%E5%8E%9F%E7%89%88%E4%B9%A6/">读书 英语原版书</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%87%87%E8%B4%AD%E5%B7%A5%E4%BD%9C%E7%9B%B8%E5%85%B3/">采购工作相关</a><span class="category-list-count">8</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">归档</h3>
-        <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">二月 2018</a><span class="archive-list-count">3</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">标签</h3>
-        <div class="widget">
-            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-%E9%87%87%E8%B4%AD/" rel="tag">工作总结 采购</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" rel="tag">编辑器</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6-%E4%B8%9A%E4%BD%99%E6%80%9D%E8%80%83/" rel="tag">读书 业余思考</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6-%E6%89%BE%E4%B9%A6-%E7%94%B5%E5%AD%90%E4%B9%A6%E8%B5%84%E6%BA%90/" rel="tag">读书 找书 电子书资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6-%E7%94%B5%E5%AD%90%E4%B9%A6%E8%B5%84%E6%BA%90/" rel="tag">读书 电子书资源</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书 读书笔记</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%87%E8%B4%AD/" rel="tag">采购</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%87%E8%B4%AD-%E4%BE%9B%E5%BA%94%E5%95%86%E7%AE%A1%E7%90%86/" rel="tag">采购 供应商管理</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%87%E8%B4%AD-%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86/" rel="tag">采购 供应链管理</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%87%E8%B4%AD-%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%96%B9%E6%B3%95%E8%AE%BA/" rel="tag">采购 工具与方法论</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%87%87%E8%B4%AD-%E7%89%A9%E6%B5%81/" rel="tag">采购 物流</a><span class="tag-list-count">1</span></li></ul>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-float">
-        <h3 class="widget-title">标签云</h3>
-        <div class="widget tagcloud">
-            <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%80%BB%E7%BB%93-%E9%87%87%E8%B4%AD/" style="font-size: 10px;">工作总结 采购</a> <a href="/tags/%E7%BC%96%E8%BE%91%E5%99%A8/" style="font-size: 10px;">编辑器</a> <a href="/tags/%E8%AF%BB%E4%B9%A6-%E4%B8%9A%E4%BD%99%E6%80%9D%E8%80%83/" style="font-size: 10px;">读书 业余思考</a> <a href="/tags/%E8%AF%BB%E4%B9%A6-%E6%89%BE%E4%B9%A6-%E7%94%B5%E5%AD%90%E4%B9%A6%E8%B5%84%E6%BA%90/" style="font-size: 10px;">读书 找书 电子书资源</a> <a href="/tags/%E8%AF%BB%E4%B9%A6-%E7%94%B5%E5%AD%90%E4%B9%A6%E8%B5%84%E6%BA%90/" style="font-size: 10px;">读书 电子书资源</a> <a href="/tags/%E8%AF%BB%E4%B9%A6-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书 读书笔记</a> <a href="/tags/%E9%87%87%E8%B4%AD/" style="font-size: 10px;">采购</a> <a href="/tags/%E9%87%87%E8%B4%AD-%E4%BE%9B%E5%BA%94%E5%95%86%E7%AE%A1%E7%90%86/" style="font-size: 15px;">采购 供应商管理</a> <a href="/tags/%E9%87%87%E8%B4%AD-%E4%BE%9B%E5%BA%94%E9%93%BE%E7%AE%A1%E7%90%86/" style="font-size: 20px;">采购 供应链管理</a> <a href="/tags/%E9%87%87%E8%B4%AD-%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%96%B9%E6%B3%95%E8%AE%BA/" style="font-size: 10px;">采购 工具与方法论</a> <a href="/tags/%E9%87%87%E8%B4%AD-%E7%89%A9%E6%B5%81/" style="font-size: 10px;">采购 物流</a>
-        </div>
-    </div>
-
-
-            
-                
-    <div class="widget-wrap widget-list">
-        <h3 class="widget-title">链接</h3>
-        <div class="widget">
-            <ul>
-                
-                    <li>
-                        <a href="http://hexo.io" target="_blank" rel="noopener">Hexo</a>
-                    </li>
-                
-            </ul>
-        </div>
-    </div>
-
-
-            
-        
-    </div>
-</aside>
-
-                </div>
-            </div>
-        </div>
-        <footer id="footer">
-    <div class="container">
-        <div class="container-inner">
-            <a id="back-to-top" href="javascript:;"><i class="icon fa fa-angle-up"></i></a>
-            <div class="credit">
-                <h1 class="logo-wrap">
-                    <a href="/" class="logo"></a>
-                </h1>
-                <p>&copy; 2019 王烨</p>
-                <p>Powered by <a href="//hexo.io/" target="_blank">Hexo</a>. Theme by <a href="//github.com/ppoffice" target="_blank">PPOffice</a></p>
-            </div>
-            <div class="footer-plugins">
-              
-    
-
-
-            </div>
-        </div>
-    </div>
-</footer>
-
-        
-    
-    <script>
-    var disqus_shortname = 'hexo-theme-hueman';
-    
-    
-    var disqus_url = 'http://learnbydoing8.com/2019/03/07/%E4%BE%9B%E5%BA%94%E5%95%86%E5%85%B3%E7%B3%BB%E7%AE%A1%E7%90%86-%E6%BF%80%E5%8A%B1%E5%92%8C%E7%AE%A1%E7%90%86%E4%BE%9B%E5%BA%94%E5%95%86%E7%BB%A9%E6%95%88/';
-    
-    (function() {
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-    </script>
-
-
-
-
-
-    
-        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
-    
-    
-        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
-    
-    
-
-
-
-<!-- Custom Scripts -->
-<script src="/js/main.js"></script>
-
-    </div>
-</body>
-</html>
+  if theme.reward.enable
+    include includes/reward.pug
+  include includes/pagination.pug
+  
+  if theme.related_post && theme.related_post.enable
+    != related_posts(page,site.posts)
+  if page.comments !== false
+    include includes/comments/index.pug
