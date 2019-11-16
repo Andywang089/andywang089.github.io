@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>电子书管理秘笈：帮你打造个人电子图书馆——kindle传书&amp;电子书格式转换</title>
+      <link href="/2019/11/08/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%AE%A1%E7%90%86%E7%A7%98%E7%AC%88%EF%BC%9A%E5%B8%AE%E4%BD%A0%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%94%B5%E5%AD%90%E5%9B%BE%E4%B9%A6%E9%A6%86%E2%80%94%E2%80%94kindle%E4%BC%A0%E4%B9%A6&amp;%E7%94%B5%E5%AD%90%E4%B9%A6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/"/>
+      <url>/2019/11/08/%E7%94%B5%E5%AD%90%E4%B9%A6%E7%AE%A1%E7%90%86%E7%A7%98%E7%AC%88%EF%BC%9A%E5%B8%AE%E4%BD%A0%E6%89%93%E9%80%A0%E4%B8%AA%E4%BA%BA%E7%94%B5%E5%AD%90%E5%9B%BE%E4%B9%A6%E9%A6%86%E2%80%94%E2%80%94kindle%E4%BC%A0%E4%B9%A6&amp;%E7%94%B5%E5%AD%90%E4%B9%A6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2/</url>
+      
+        <content type="html"><![CDATA[<h1 id="kindle秘笈：怎么把电子书导入到kindle"><a href="#kindle秘笈：怎么把电子书导入到kindle" class="headerlink" title="kindle秘笈：怎么把电子书导入到kindle"></a>kindle秘笈：怎么把电子书导入到kindle</h1><h1 id="电子书管理秘笈：帮你打造个人电子图书馆——kindle传书-amp-电子书格式转换"><a href="#电子书管理秘笈：帮你打造个人电子图书馆——kindle传书-amp-电子书格式转换" class="headerlink" title="电子书管理秘笈：帮你打造个人电子图书馆——kindle传书&amp;电子书格式转换"></a>电子书管理秘笈：帮你打造个人电子图书馆——kindle传书&amp;电子书格式转换</h1><h2 id="1-【电子书格式】"><a href="#1-【电子书格式】" class="headerlink" title="1.【电子书格式】"></a>1.【电子书格式】</h2><p>要想给kindle传书，首先电脑上要有<strong>mobi/azw3</strong>格式电子书。没有也没关系，今天的<strong>“主角”</strong>可以进行电子书格式转换。</p><p>目前最主流的电子书格式主要有<strong>epub、mobi/azw3</strong>，<strong>epub</strong>格式主要适用于<strong>智能手机</strong>中的阅读软件如<em>多看阅读</em>、<em>微信读书</em>等；<strong>mobi/azw3</strong>格式的应用在<strong>kindle</strong>上。</p><p>本文主要介绍如何将你手上的电子书转入到kindle上面，电子书转到智能手机上面更简单，一般是要求软件和电脑处于同一无线网络下，根据阅读软件的提示操作即可，不作为本文介绍的重点。</p><h2 id="2-【神器推荐】Calibre——电子书管理软件"><a href="#2-【神器推荐】Calibre——电子书管理软件" class="headerlink" title="2. 【神器推荐】Calibre——电子书管理软件"></a>2. 【神器推荐】Calibre——电子书管理软件</h2><p>【软件推荐】：推荐神器<strong>Calibre</strong>，它是一个电子书管理软件。</p><p><strong>【功能】</strong></p><ol><li><strong>给kindle传书</strong></li><li>mobi、awz3、epub格式互转</li><li>简单编辑电子书（强迫症患者福音：换封面）</li><li>电子书阅读器</li></ol><h2 id="3-Calibre使用介绍"><a href="#3-Calibre使用介绍" class="headerlink" title="3.Calibre使用介绍"></a>3.Calibre使用介绍</h2><p><strong>【1】电脑端，首先打开Calibre软件，界面如图所示：</strong></p><p><img alt="Annotation 2019-11-15 225718.png" data-src="https://i.loli.net/2019/11/15/c7DTRbGmyrfBhsq.png" class="lozad"></p><p><strong>【2】通过数据线，连接kindle</strong></p><p>电脑连接kindle后，Calibre软件界面如下，请注意我红圈标出地方，菜单选项出现：<strong>“发送到设备”</strong>，说明可以将电子书发送到kindle设备中去了。</p><p><img alt="Annotation 2019-11-15 230029.png" data-src="https://i.loli.net/2019/11/15/oOYiuJ7XLpnw9rM.png" class="lozad"></p><p><strong>【3】</strong>发送电子书</p><p>假如我想添加我电脑上面的<strong>《中国最美诗词典评》</strong>这本书到kindle，</p><ol><li>点击<strong>“添加书籍”</strong>，把下载好的电子书<strong>《中国最美诗词典评》</strong>添加到Calibre，然后鼠标选中<strong>《中国最美诗词典评》</strong>，如上图所示；</li><li>右边显示该电子书的作者、格式、存储路径；</li><li>点击上图的<strong>“发送到设备”</strong>，该电子书就发送到kindle上去了，发送成功后会有 <strong>√</strong> 显示。</li></ol><p><strong>【提醒事项】</strong></p><ol><li>必须连接kindle后，<strong>发送至设备</strong>选项才会出现。</li><li>如果连接设备后没有反应，请检查是否是kindle设置了密码，如是，请输入密码。</li><li>电子书添加到软件后，软件右半部分如没有书籍封面、作者等信息，可以在软件菜单<strong>“编辑元数据”</strong>中修改。点击<strong>编辑元数据</strong>后界面如图：点击<strong>浏览</strong>按钮，选中你提前找好的封面图片，点击确定即可完成修改。</li></ol><p><img alt="110231.png" data-src="https://i.loli.net/2019/11/16/RbvYHFkSunNwUtd.png" class="lozad"></p><ol start="4"><li>菜单键<strong>转换书籍</strong>可以进行<strong>epub、mobi/azw3</strong>格式互转，一键即可实现，不再赘述。</li></ol><p>如有其他疑问，请留言告知，我会尽所能进行解答，感谢您的阅读。下期预告——将介绍一款强大的笔记软件。</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> kindle 电子书 Calibre </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>学英语有这个词典就够了</title>
       <link href="/2019/11/01/%E5%AD%A6%E8%8B%B1%E8%AF%AD%E6%9C%89%E8%BF%99%E4%B8%AA%E8%AF%8D%E5%85%B8%E5%B0%B1%E5%A4%9F%E4%BA%86/"/>
       <url>/2019/11/01/%E5%AD%A6%E8%8B%B1%E8%AF%AD%E6%9C%89%E8%BF%99%E4%B8%AA%E8%AF%8D%E5%85%B8%E5%B0%B1%E5%A4%9F%E4%BA%86/</url>
@@ -14,7 +33,7 @@
       
         <tags>
             
-            <tag> 英语 词典 英语学习 资源分享 </tag>
+            <tag> 英语 六大词典 英语词典 资源分享 </tag>
             
         </tags>
       
